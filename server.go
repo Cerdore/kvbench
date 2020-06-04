@@ -119,6 +119,7 @@ func Start(opts Options) error {
 	defer store.Close()
 	log.Printf("store type: %v, fsync: %v", which, fsync)
 	var srv *redcon.Server
+
 	srv = redcon.NewServer(fmt.Sprintf(":%d", port),
 		func(conn redcon.Conn, cmd redcon.Command) {
 			cmdp, keys, values, is := parsePipeline(conn, cmd)

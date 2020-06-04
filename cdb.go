@@ -46,9 +46,16 @@ func (s *cdbStore) PSet(keys, values [][]byte) error {
 	// }
 	// defer s.db.Rollback()
 	for i := range keys {
-		if err := s.db.Put(keys[i], values[i], false); err != nil {
-			return err
+		if s.fsync == true {
+			if err := s.db.Put(keys[i], values[i], true); err != nil {
+				return err
+			}
+		} else {
+			if err := s.db.Put(keys[i], values[i], false); err != nil {
+				return err
+			}
 		}
+
 	}
 	return nil
 }
@@ -70,7 +77,12 @@ func (s *cdbStore) PGet(keys [][]byte) ([][]byte, []bool, error) {
 func (s *cdbStore) Set(key, value []byte) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	return s.db.Put(key, value, false)
+	if s.fsync == true {
+		return s.db.Put(key, value, true)
+
+	} else {
+		return s.db.Put(key, value, false)
+	}
 }
 
 func (s *cdbStore) Get(key []byte) ([]byte, bool, error) {
@@ -93,7 +105,11 @@ func (s *cdbStore) Del(key []byte) (bool, error) {
 	if v == nil {
 		return false, nil
 	}
-	err = s.db.Delete(key, false)
+	if s.fsync == true {
+		err = s.db.Delete(key, true)
+	} else {
+		err = s.db.Delete(key, false)
+	}
 	if err != nil {
 		return false, err
 	}
