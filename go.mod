@@ -6,6 +6,7 @@ require (
 	github.com/DataDog/zstd v1.4.4 // indirect
 	github.com/akrylysov/pogreb v0.9.0
 	github.com/boltdb/bolt v1.3.1
+	github.com/cerdore/cdb v1.0.5
 	github.com/cockroachdb/pebble v0.0.0-20200331011042-7de3fc63b7c9
 	github.com/cznic/fileutil v0.0.0-20181122101858-4d67cfea8c87 // indirect
 	github.com/cznic/internal v0.0.0-20181122101858-3279554c546e // indirect

@@ -13,7 +13,7 @@ var log = redlog.New(os.Stderr, nil)
 func main() {
 	var opts kvbench.Options
 	flag.IntVar(&opts.Port, "p", 6380, "server port")
-	flag.StringVar(&opts.Which, "store", "map", "store type: map,btree,bolt,leveldb")
+	flag.StringVar(&opts.Which, "store", "map", "store type: map,btree,bolt,leveldb,cdb")
 	flag.BoolVar(&opts.Fsync, "fsync", true, "fsync")
 	flag.StringVar(&opts.Path, "path", "", "database path or ':memory:' for none")
 	flag.Parse()

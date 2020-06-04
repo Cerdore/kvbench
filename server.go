@@ -85,11 +85,11 @@ func Start(opts Options) error {
 			path = "buntdb.db"
 		}
 		store, err = NewBuntdbStore(path, fsync)
-	case "rocksdb":
-		if path == "" {
-			path = "rocksdb.db"
-		}
-		store, err = NewRocksdbStore(path, fsync)
+	// case "rocksdb":
+	// 	if path == "" {
+	// 		path = "rocksdb.db"
+	// 	}
+	// 	store, err = NewRocksdbStore(path, fsync)
 	case "pebble":
 		if path == "" {
 			path = "pebble.db"
@@ -105,6 +105,11 @@ func Start(opts Options) error {
 			path = "nutsdb.db"
 		}
 		store, err = NewNutsdbStore(path, fsync)
+	case "cdb":
+		if path == "" {
+			path = "cdb.db"
+		}
+		store, err = NewcdbStore(path, fsync)
 	}
 
 	if err != nil {
